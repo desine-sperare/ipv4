@@ -6,12 +6,19 @@
 
 namespace timlibs
 {
+    /// @brief Initialaize IPv4 address object as 0.0.0.0
+    IPv4::IPv4() : address(NULL_IP_DEC) {}
+
     /// @brief Initialaize IPv4 address object
     /// @param ip_address IPv4 address as string, ex. "192.168.34.2"
     IPv4::IPv4(const std::string& ip_address)
     {
         this->Set(ip_address);
     }
+
+    /// @brief Initialaize IPv4 address object
+    /// @param ip_address IPv4 address as unsigned integer 32 bits
+    IPv4::IPv4(const uint32_t &ip_address) : address(ip_address) {}
 
     /// @brief Initialaize IPv4 address object (Copy constructor)
     /// @param ip_address IPv4 object
@@ -26,11 +33,19 @@ namespace timlibs
     {
         if (!(this->IsValid(ip_address))) throw ExceptionIPv4("Invalid IP address");
 
-        uint32_t a, b, c, d;
+        int a, b, c, d;
         std::sscanf(ip_address.c_str(), "%d.%d.%d.%d", &a, &b, &c, &d);
+        a = (uint32_t)a; b = (uint32_t)b; c = (uint32_t)c; d = (uint32_t)d;
 
         this->address = (a << 24 | b << 16 | c << 8 | d);
 
+    }
+
+    /// @brief Sets IPv4 address object
+    /// @param ip_address IPv4 address as unsigned integer 32 bits
+    void IPv4::Set(const uint32_t &ip_address)
+    {
+        this -> address = ip_address;
     }
 
     /// @brief Returns IPv4 address as string
@@ -45,6 +60,13 @@ namespace timlibs
         }
 
         return value;
+    }
+
+    /// @brief Returns IPv4 address as unsigned integer 32 bits
+    /// @return IPv4 address as unsigned integer 32 bits
+    uint32_t IPv4::GetAsInt() const
+    {
+        return this -> address;
     }
 
     /// @brief Checks "Is Valid the IPv4 address represents as string?"
@@ -71,6 +93,10 @@ namespace timlibs
     {
         return (this->address == operand.address);
     }
+
+    /// @brief Initialaize IPv4Mask network mask object
+    /// @param ip_address IPv4Mask as string, ex. "255.255.252.0"
+    IPv4Mask::IPv4Mask(const std::string &ip_address) : IPv4::IPv4(ip_address) {}
 
     /// @brief Initialaize IPv4Mask network mask object
     /// @param ip_address network mask as integer

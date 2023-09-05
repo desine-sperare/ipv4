@@ -24,14 +24,14 @@ namespace timlibs
     class IPv4
     {
     public:
-        IPv4() : address(NULL_IP_DEC) {};
+        IPv4();
         IPv4(const std::string& ip_address);
-        IPv4(const uint32_t& ip_address) : address(ip_address) {};
+        IPv4(const uint32_t& ip_address);
         IPv4(const IPv4& ip_address);
         void Set(const std::string& ip_address);
-        void Set(const uint32_t& ip_address) { this -> address = ip_address; };
+        void Set(const uint32_t& ip_address);
         std::string GetAsString() const;
-        uint32_t GetAsInt() const { return this -> address; };
+        uint32_t GetAsInt() const;
         virtual bool IsValid(const std::string& str) const;
         IPv4 operator&(const IPv4& operand) const;
         bool operator==(const IPv4& operand) const;
@@ -47,7 +47,7 @@ namespace timlibs
     {
     public:
         IPv4Mask() : IPv4() {};
-        IPv4Mask(const std::string& ip_address) : IPv4::IPv4(ip_address) {};
+        IPv4Mask(const std::string& ip_address);
         IPv4Mask(const uint32_t& ip_address);
         IPv4Mask(const IPv4& ip_address);
         IPv4Mask(const IPv4Mask& ip_address);
